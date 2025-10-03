@@ -1,62 +1,53 @@
 <!DOCTYPE html>
-<html>
+<html lang="ru">
 <head>
-    <title>FitGenius Pro - 30-дневная трансформация</title>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FitGenius AI - Умный фитнес-помощник</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800;900&family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
     <style>
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
-        
+
         :root {
             --primary: #4ECDC4;
             --secondary: #FF6B6B;
-            --background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            --accent: #FFD166;
+            --dark: #2D3047;
+            --light: #FFFFFF;
+            --gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             --card-bg: rgba(255,255,255,0.12);
-            --text: white;
+            --shadow: 0 8px 32px rgba(0,0,0,0.1);
         }
-        
-        .dark-theme {
-            --background: linear-gradient(135deg, #2c3e50 0%, #3498db 100%);
-            --card-bg: rgba(255,255,255,0.08);
-        }
-        
+
         body {
             font-family: 'Roboto', sans-serif;
-            background: var(--background);
-            color: var(--text);
+            background: var(--gradient);
+            color: var(--light);
             min-height: 100vh;
             background-attachment: fixed;
-            transition: all 0.3s ease;
         }
-        
-        .theme-toggle {
-            position: fixed;
-            top: 90px;
-            right: 20px;
-            background: var(--card-bg);
-            border: none;
-            color: var(--text);
-            padding: 10px;
-            border-radius: 50%;
-            cursor: pointer;
-            z-index: 1000;
-            backdrop-filter: blur(10px);
+
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 800;
         }
-        
+
+        /* Навигация */
         .navbar {
-            background: rgba(0,0,0,0.95);
-            padding: 18px 0;
+            background: rgba(45, 48, 71, 0.95);
+            padding: 20px 0;
             position: fixed;
             width: 100%;
             top: 0;
             z-index: 1000;
-            backdrop-filter: blur(10px);
-            border-bottom: 2px solid var(--primary);
+            backdrop-filter: blur(20px);
+            border-bottom: 3px solid var(--primary);
         }
-        
+
         .nav-container {
             max-width: 1200px;
             margin: 0 auto;
@@ -65,127 +56,250 @@
             align-items: center;
             padding: 0 25px;
         }
-        
+
         .logo {
-            font-family: 'Montserrat', sans-serif;
             font-size: 28px;
-            font-weight: 800;
             background: linear-gradient(45deg, var(--secondary), var(--primary));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-        }
-        
-        .container {
-            max-width: 1200px;
-            margin: 90px auto 0;
-            padding: 40px 25px;
-            min-height: calc(100vh - 90px);
+            font-weight: 900;
+            letter-spacing: 1px;
         }
 
-        /* Таймер для упражнений */
-        .timer-container {
-            background: var(--card-bg);
-            padding: 20px;
-            border-radius: 15px;
-            margin: 20px 0;
-            text-align: center;
+        .nav-links {
+            display: flex;
+            gap: 30px;
         }
-        
-        .timer {
-            font-size: 48px;
-            font-weight: bold;
+
+        .nav-links a {
+            color: var(--light);
+            text-decoration: none;
             font-family: 'Montserrat', sans-serif;
-            margin: 20px 0;
-        }
-        
-        .timer-btn {
-            background: var(--primary);
-            color: white;
-            border: none;
+            font-weight: 600;
             padding: 10px 20px;
             border-radius: 25px;
-            margin: 5px;
-            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 16px;
+        }
+
+        .nav-links a:hover {
+            background: rgba(255,255,255,0.1);
+            transform: translateY(-2px);
+        }
+
+        .nav-links a.active {
+            background: var(--primary);
+            color: var(--dark);
+        }
+
+        /* Основной контейнер */
+        .container {
+            max-width: 1200px;
+            margin: 100px auto 0;
+            padding: 40px 25px;
+            min-height: calc(100vh - 100px);
+        }
+
+        .page {
+            display: none;
+            animation: fadeInUp 0.6s ease-out;
+        }
+
+        .page.active {
+            display: block;
+        }
+
+        /* Герой секция */
+        .hero {
+            text-align: center;
+            padding: 80px 0;
+        }
+
+        .hero h1 {
+            font-size: 3.5em;
+            margin-bottom: 20px;
+            background: linear-gradient(45deg, var(--secondary), var(--primary), var(--accent));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 4px 20px rgba(0,0,0,0.3);
+        }
+
+        .hero p {
+            font-size: 1.4em;
+            margin-bottom: 40px;
+            opacity: 0.9;
+            font-weight: 300;
+        }
+
+        /* Кнопки */
+        .btn {
+            background: linear-gradient(135deg, var(--primary), #44A08D);
+            color: white;
+            border: none;
+            padding: 18px 35px;
+            border-radius: 30px;
             font-family: 'Montserrat', sans-serif;
-        }
-
-        /* Прогресс фотографии */
-        .photo-progress {
-            background: var(--card-bg);
-            padding: 20px;
-            border-radius: 15px;
-            margin: 20px 0;
-        }
-        
-        .photo-upload {
-            border: 2px dashed var(--primary);
-            padding: 40px;
-            text-align: center;
-            border-radius: 10px;
-            margin: 10px 0;
+            font-weight: 700;
+            font-size: 18px;
             cursor: pointer;
-        }
-        
-        .photo-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-            gap: 10px;
-            margin-top: 20px;
-        }
-        
-        .photo-item {
-            width: 100%;
-            height: 150px;
-            object-fit: cover;
-            border-radius: 10px;
+            transition: all 0.3s ease;
+            margin: 10px;
+            box-shadow: var(--shadow);
+            text-decoration: none;
+            display: inline-block;
+            letter-spacing: 0.5px;
         }
 
-        /* Мотивационные уведомления */
-        .motivation-card {
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
-            padding: 20px;
-            border-radius: 15px;
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 30px rgba(0,0,0,0.2);
+        }
+
+        .btn-secondary {
+            background: linear-gradient(135deg, var(--secondary), #FF8E53);
+        }
+
+        .btn-accent {
+            background: linear-gradient(135deg, var(--accent), #FFB347);
+            color: var(--dark);
+        }
+
+        .btn-large {
+            padding: 22px 45px;
+            font-size: 20px;
+        }
+
+        /* Карточки */
+        .feature-card {
+            background: var(--card-bg);
+            padding: 35px;
+            border-radius: 25px;
+            margin: 25px 0;
+            backdrop-filter: blur(15px);
+            border: 1px solid rgba(255,255,255,0.1);
+            box-shadow: var(--shadow);
+            transition: transform 0.3s ease;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .program-card {
+            background: var(--card-bg);
+            padding: 30px;
+            border-radius: 20px;
             margin: 20px 0;
             text-align: center;
-            animation: pulse 2s infinite;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
         }
 
-        /* Водный режим */
-        .water-tracker {
+        .program-card:hover {
+            border-color: var(--primary);
+            transform: scale(1.02);
+        }
+
+        .program-card.active {
+            border-color: var(--primary);
+            background: rgba(78, 205, 196, 0.1);
+        }
+
+        /* Выбор дней */
+        .day-selector {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(80px, 1fr));
+            gap: 12px;
+            margin: 25px 0;
+        }
+
+        .day-btn {
             background: var(--card-bg);
-            padding: 20px;
+            color: var(--light);
+            border: none;
+            padding: 15px 10px;
+            border-radius: 15px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 600;
+            font-size: 14px;
+        }
+
+        .day-btn:hover {
+            background: rgba(255,255,255,0.2);
+        }
+
+        .day-btn.active {
+            background: var(--primary);
+            color: var(--dark);
+            box-shadow: 0 4px 15px rgba(78, 205, 196, 0.3);
+        }
+
+        .day-btn.completed {
+            background: var(--secondary);
+            color: white;
+        }
+
+        /* Тренировки */
+        .exercise-list {
+            background: rgba(255,255,255,0.1);
+            padding: 25px;
+            border-radius: 20px;
+            margin: 20px 0;
+            border-left: 5px solid var(--primary);
+        }
+
+        .exercise-item {
+            background: rgba(255,255,255,0.05);
+            padding: 15px;
+            margin: 10px 0;
+            border-radius: 10px;
+            border-left: 3px solid var(--accent);
+        }
+
+        /* Определение тренажеров */
+        .machine-scanner {
+            background: var(--card-bg);
+            padding: 30px;
+            border-radius: 20px;
+            margin: 20px 0;
+            text-align: center;
+        }
+
+        .scanner-area {
+            border: 3px dashed var(--primary);
+            padding: 50px;
             border-radius: 15px;
             margin: 20px 0;
-        }
-        
-        .water-cups {
-            display: flex;
-            justify-content: center;
-            gap: 10px;
-            margin: 20px 0;
-        }
-        
-        .water-cup {
-            width: 40px;
-            height: 60px;
-            background: rgba(255,255,255,0.2);
-            border-radius: 0 0 10px 10px;
             cursor: pointer;
             transition: all 0.3s ease;
         }
-        
-        .water-cup.filled {
-            background: #3498db;
+
+        .scanner-area:hover {
+            border-color: var(--accent);
+            background: rgba(255,255,255,0.05);
         }
 
-        /* Остальные стили остаются как были */
-        .feature-card {
-            background: var(--card-bg);
+        .machine-info {
+            background: rgba(255,255,255,0.1);
             padding: 25px;
             border-radius: 15px;
             margin: 20px 0;
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255,255,255,0.1);
+            display: none;
+        }
+
+        /* Анимации */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
         @keyframes pulse {
@@ -194,264 +308,503 @@
             100% { transform: scale(1); }
         }
 
+        .pulse {
+            animation: pulse 2s infinite;
+        }
+
+        /* Прогресс */
+        .progress-section {
+            background: var(--card-bg);
+            padding: 30px;
+            border-radius: 20px;
+            margin: 25px 0;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 25px;
+            margin: 30px 0;
+        }
+
+        .stat-card {
+            background: rgba(255,255,255,0.1);
+            padding: 25px;
+            border-radius: 15px;
+            text-align: center;
+            transition: transform 0.3s ease;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .stat-number {
+            font-size: 3em;
+            font-weight: 900;
+            font-family: 'Montserrat', sans-serif;
+            background: linear-gradient(45deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 10px;
+        }
+
+        .stat-label {
+            font-size: 1.1em;
+            opacity: 0.9;
+            font-weight: 500;
+        }
+
         /* Адаптивность */
         @media (max-width: 768px) {
-            .container {
-                padding: 20px 15px;
-                margin-top: 80px;
+            .nav-links {
+                gap: 15px;
             }
             
-            .theme-toggle {
-                top: 80px;
-                right: 15px;
+            .nav-links a {
+                font-size: 14px;
+                padding: 8px 15px;
+            }
+            
+            .hero h1 {
+                font-size: 2.5em;
+            }
+            
+            .hero p {
+                font-size: 1.1em;
+            }
+            
+            .container {
+                padding: 20px 15px;
+                margin-top: 90px;
+            }
+            
+            .btn {
+                padding: 15px 25px;
+                font-size: 16px;
             }
         }
+
+        /* Утилиты */
+        .text-center { text-align: center; }
+        .mt-20 { margin-top: 20px; }
+        .mb-20 { margin-bottom: 20px; }
+        .hidden { display: none; }
     </style>
 </head>
 <body>
-    <button class="theme-toggle" onclick="toggleTheme()">🌙</button>
-
+    <!-- Навигация -->
     <nav class="navbar">
         <div class="nav-container">
-            <div class="logo">🏋️ FitGenius Pro</div>
+            <div class="logo">🏋️ FitGenius AI</div>
             <div class="nav-links">
-                <a href="#" onclick="showPage('home')">Главная</a>
-                <a href="#" onclick="showPage('program')">Тренировки</a>
-                <a href="#" onclick="showPage('nutrition')">Питание</a>
+                <a href="#" class="active" onclick="showPage('home')">Главная</a>
+                <a href="#" onclick="showPage('programs')">Программы</a>
+                <a href="#" onclick="showPage('quick-workout')">Быстрая тренировка</a>
+                <a href="#" onclick="showPage('machine-scanner')">Определить тренажер</a>
                 <a href="#" onclick="showPage('progress')">Прогресс</a>
-                <a href="#" onclick="showPage('community')">Сообщество</a>
             </div>
         </div>
     </nav>
 
+    <!-- Основной контент -->
     <div class="container">
         <!-- Главная страница -->
         <div id="home" class="page active">
             <div class="hero">
-                <h1>30-дневная трансформация</h1>
-                <p>Новые функции: таймеры, прогресс фото, водный режим!</p>
-                <button class="cta-button" onclick="showPage('program')">Начать трансформацию</button>
+                <h1>ТВОЙ AI ФИТНЕС-ТРЕНЕР</h1>
+                <p>Персональные программы, умное определение тренажеров и профессиональные тренировки</p>
+                <div class="mt-20">
+                    <button class="btn btn-large" onclick="showPage('programs')">🎯 Начать программу</button>
+                    <button class="btn btn-large btn-secondary" onclick="showPage('quick-workout')">⚡ Быстрая тренировка</button>
+                </div>
             </div>
 
-            <div class="motivation-card">
-                <h3>💪 Ты сможешь!</h3>
-                <p>Сегодняшняя тренировка изменит твое завтра</p>
-            </div>
-
-            <div class="stats">
+            <div class="stats-grid">
                 <div class="stat-card">
                     <div class="stat-number" id="totalWorkouts">0</div>
                     <div class="stat-label">Завершено тренировок</div>
                 </div>
                 <div class="stat-card">
-                    <div class="stat-number" id="waterCount">0/8</div>
-                    <div class="stat-label">Стаканов воды</div>
-                </div>
-                <div class="stat-card">
                     <div class="stat-number" id="currentStreak">0</div>
                     <div class="stat-label">Дней подряд</div>
                 </div>
-            </div>
-        </div>
-
-        <!-- Тренировки с таймером -->
-        <div id="program" class="page">
-            <h1>💪 Тренировки + Таймер</h1>
-            
-            <div class="timer-container">
-                <h3>⏱️ Таймер упражнений</h3>
-                <div class="timer" id="exerciseTimer">00:30</div>
-                <button class="timer-btn" onclick="startTimer()">Старт</button>
-                <button class="timer-btn" onclick="pauseTimer()">Пауза</button>
-                <button class="timer-btn" onclick="resetTimer()">Сброс</button>
-            </div>
-
-            <!-- Остальной код тренировок -->
-        </div>
-
-        <!-- Новый раздел - Сообщество -->
-        <div id="community" class="page">
-            <h1>👥 Фитнес Сообщество</h1>
-            
-            <div class="feature-card">
-                <h3>📸 Мой прогресс в фото</h3>
-                <div class="photo-upload" onclick="document.getElementById('photoInput').click()">
-                    <p>📷 Нажми чтобы добавить фото прогресса</p>
-                    <input type="file" id="photoInput" accept="image/*" style="display:none" onchange="handlePhotoUpload(event)">
+                <div class="stat-card">
+                    <div class="stat-number" id="successRate">100%</div>
+                    <div class="stat-label">Эффективность</div>
                 </div>
-                <div class="photo-grid" id="photoGrid"></div>
-            </div>
-
-            <div class="water-tracker">
-                <h3>💧 Водный режим</h3>
-                <p>Выпито стаканов: <span id="waterDisplay">0</span>/8</p>
-                <div class="water-cups" id="waterCups"></div>
-                <button class="cta-button" onclick="resetWater()">Сбросить на день</button>
-            </div>
-
-            <div class="feature-card">
-                <h3>🏆 Достижения</h3>
-                <div id="achievementsList"></div>
             </div>
         </div>
 
-        <!-- Остальные страницы (Питание, Прогресс) -->
+        <!-- Выбор программы -->
+        <div id="programs" class="page">
+            <h1 class="text-center">🎯 ВЫБЕРИ ПРОГРАММУ ТРЕНИРОВОК</h1>
+            <p class="text-center mb-20">Персональные программы под твои цели</p>
+
+            <div class="program-card" onclick="selectProgram('30days-beginner')">
+                <h3>📅 30-ДНЕВНЫЙ МАРАФОН</h3>
+                <p>Для начинающих • Полная трансформация тела</p>
+                <div class="btn mt-20">Выбрать программу</div>
+            </div>
+
+            <div class="program-card" onclick="selectProgram('strength')">
+                <h3>💪 СИЛОВОЙ ТРЕНИНГ</h3>
+                <p>Для роста мышц • Работа с весами</p>
+                <div class="btn mt-20">Выбрать программу</div>
+            </div>
+
+            <div class="program-card" onclick="selectProgram('weight-loss')">
+                <h3>🏃 ПОХУДЕНИЕ И ТОНУС</h3>
+                <p>Сжигание жира • Кардио тренировки</p>
+                <div class="btn mt-20">Выбрать программу</div>
+            </div>
+
+            <div id="program-content" class="hidden">
+                <!-- Контент программы будет загружаться здесь -->
+            </div>
+        </div>
+
+        <!-- Быстрая тренировка -->
+        <div id="quick-workout" class="page">
+            <h1 class="text-center">⚡ БЫСТРАЯ ТРЕНИРОВКА</h1>
+            <p class="text-center mb-20">Выбери тип тренировки и получи персональный план</p>
+
+            <div class="feature-card">
+                <h3>🎯 ВЫБЕРИ ЦЕЛЬ:</h3>
+                <div class="mt-20">
+                    <button class="btn" onclick="generateQuickWorkout('strength')">💪 Сила</button>
+                    <button class="btn btn-secondary" onclick="generateQuickWorkout('cardio')">🏃 Кардио</button>
+                    <button class="btn btn-accent" onclick="generateQuickWorkout('hiit')">🔥 ВИИТ</button>
+                    <button class="btn" onclick="generateQuickWorkout('fullbody')">🔄 Фулл-бади</button>
+                </div>
+            </div>
+
+            <div id="quick-workout-result"></div>
+        </div>
+
+        <!-- Определение тренажеров -->
+        <div id="machine-scanner" class="page">
+            <h1 class="text-center">📷 ОПРЕДЕЛЕНИЕ ТРЕНАЖЕРОВ</h1>
+            <p class="text-center mb-20">Сфотографируй тренажер и получи инструкцию</p>
+
+            <div class="machine-scanner">
+                <div class="scanner-area" onclick="openCamera()">
+                    <h3>📸 Нажми чтобы сфотографировать тренажер</h3>
+                    <p>Или загрузи фото из галереи</p>
+                    <input type="file" id="machinePhoto" accept="image/*" style="display:none" onchange="analyzeMachine(event)">
+                </div>
+
+                <div id="machine-result" class="machine-info">
+                    <!-- Результат анализа будет здесь -->
+                </div>
+
+                <div class="feature-card">
+                    <h3>🎯 ПОПУЛЯРНЫЕ ТРЕНАЖЕРЫ:</h3>
+                    <div class="mt-20">
+                        <button class="btn" onclick="showMachineInfo('treadmill')">🏃 Беговая дорожка</button>
+                        <button class="btn" onclick="showMachineInfo('elliptical')">🔁 Эллипс</button>
+                        <button class="btn" onclick="showMachineInfo('leg-press')">🦵 Тренажер для ног</button>
+                        <button class="btn" onclick="showMachineInfo('chest-press')">💪 Жим от груди</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Прогресс -->
+        <div id="progress" class="page">
+            <h1 class="text-center">📊 МОЙ ПРОГРЕСС</h1>
+            
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-number" id="completedWorkouts">0</div>
+                    <div class="stat-label">Тренировок завершено</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number" id="totalDays">0</div>
+                    <div class="stat-label">Дней тренировок</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number" id="programProgress">0%</div>
+                    <div class="stat-label">Прогресс программы</div>
+                </div>
+            </div>
+
+            <div class="progress-section">
+                <h3>📈 ИСТОРИЯ ТРЕНИРОВОК</h3>
+                <div id="workout-history"></div>
+            </div>
+        </div>
     </div>
 
     <script>
-        // Новые функции
-        let isDarkTheme = false;
-        let timerInterval;
-        let timerSeconds = 30;
-        let waterCount = 0;
-        let achievements = JSON.parse(localStorage.getItem('achievements')) || [];
+        // Данные пользователя
+        let userData = JSON.parse(localStorage.getItem('fitgenius-data')) || {
+            completedWorkouts: 0,
+            currentProgram: null,
+            workoutHistory: [],
+            currentStreak: 0,
+            programProgress: {}
+        };
 
-        // Переключение темы
-        function toggleTheme() {
-            isDarkTheme = !isDarkTheme;
-            document.body.classList.toggle('dark-theme');
-            document.querySelector('.theme-toggle').textContent = isDarkTheme ? '☀️' : '🌙';
+        // Показ страниц
+        function showPage(pageId) {
+            // Обновляем навигацию
+            document.querySelectorAll('.nav-links a').forEach(link => {
+                link.classList.remove('active');
+            });
+            event.target.classList.add('active');
+
+            // Показываем страницу
+            document.querySelectorAll('.page').forEach(page => {
+                page.classList.remove('active');
+            });
+            document.getElementById(pageId).classList.add('active');
+
+            // Обновляем данные
+            updateProgress();
         }
 
-        // Таймер упражнений
-        function startTimer() {
-            clearInterval(timerInterval);
-            timerInterval = setInterval(() => {
-                timerSeconds--;
-                updateTimerDisplay();
-                if (timerSeconds <= 0) {
-                    clearInterval(timerInterval);
-                    alert('⏰ Время вышло! Отличная работа!');
-                }
-            }, 1000);
-        }
-
-        function pauseTimer() {
-            clearInterval(timerInterval);
-        }
-
-        function resetTimer() {
-            clearInterval(timerInterval);
-            timerSeconds = 30;
-            updateTimerDisplay();
-        }
-
-        function updateTimerDisplay() {
-            const minutes = Math.floor(timerSeconds / 60);
-            const seconds = timerSeconds % 60;
-            document.getElementById('exerciseTimer').textContent = 
-                `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
-        }
-
-        // Водный режим
-        function initWaterTracker() {
-            const waterCups = document.getElementById('waterCups');
-            waterCups.innerHTML = '';
-            waterCount = parseInt(localStorage.getItem('waterCount')) || 0;
+        // Выбор программы
+        function selectProgram(programId) {
+            userData.currentProgram = programId;
+            localStorage.setItem('fitgenius-data', JSON.stringify(userData));
             
-            for (let i = 0; i < 8; i++) {
-                const cup = document.createElement('div');
-                cup.className = `water-cup ${i < waterCount ? 'filled' : ''}`;
-                cup.onclick = () => drinkWater(i);
-                waterCups.appendChild(cup);
-            }
-            updateWaterDisplay();
-        }
-
-        function drinkWater(cupIndex) {
-            if (cupIndex === waterCount) {
-                waterCount++;
-                localStorage.setItem('waterCount', waterCount);
-                initWaterTracker();
-                
-                if (waterCount === 8) {
-                    unlockAchievement('waterMaster');
-                }
+            if (programId === '30days-beginner') {
+                show30DayProgram();
+            } else {
+                alert('🎯 Программа выбрана! Начинаем тренировки!');
+                showPage('progress');
             }
         }
 
-        function resetWater() {
-            waterCount = 0;
-            localStorage.setItem('waterCount', waterCount);
-            initWaterTracker();
+        // 30-дневная программа
+        function show30DayProgram() {
+            const programContent = document.getElementById('program-content');
+            programContent.innerHTML = `
+                <div class="feature-card">
+                    <h2>📅 30-ДНЕВНЫЙ МАРАФОН ДЛЯ НАЧИНАЮЩИХ</h2>
+                    <p>Пошаговая программа для полной трансформации тела</p>
+                    
+                    <div class="day-selector" id="daySelector"></div>
+                    
+                    <div id="daily-workout"></div>
+                </div>
+            `;
+            
+            createDaySelector();
+            loadDayWorkout(1);
+            document.getElementById('program-content').classList.remove('hidden');
         }
 
-        function updateWaterDisplay() {
-            document.getElementById('waterDisplay').textContent = waterCount;
-            document.getElementById('waterCount').textContent = `${waterCount}/8`;
+        // Создание селектора дней
+        function createDaySelector() {
+            const selector = document.getElementById('daySelector');
+            selector.innerHTML = '';
+            
+            for (let day = 1; day <= 30; day++) {
+                const dayBtn = document.createElement('button');
+                dayBtn.className = 'day-btn';
+                dayBtn.textContent = `День ${day}`;
+                dayBtn.onclick = () => loadDayWorkout(day);
+                selector.appendChild(dayBtn);
+            }
         }
 
-        // Система достижений
-        function unlockAchievement(achievementId) {
-            const achievement = {
-                id: achievementId,
+        // Загрузка тренировки дня
+        function loadDayWorkout(day) {
+            document.querySelectorAll('.day-btn').forEach(btn => btn.classList.remove('active'));
+            document.querySelectorAll('.day-btn')[day-1].classList.add('active');
+            
+            const workouts = {
+                1: { title: "💪 БАЗОВАЯ ТРЕНИРОВКА", exercises: ["• Приседания: 3х15", "• Отжимания: 3х10", "• Планка: 3х30сек", "• Скручивания: 3х15"] },
+                2: { title: "🏃 КАРДИО ДЕНЬ", exercises: ["• Бег: 20 минут", "• Прыжки: 4х30сек", "• Берпи: 3х10", "• Планка: 3х45сек"] },
+                3: { title: "🔄 ФУЛЛ-БАДИ", exercises: ["• Выпады: 3х12", "• Подтягивания: 3х8", "• Пресс: 4х20", "• Отжимания: 4х12"] }
+            };
+            
+            const workout = workouts[day] || workouts[1];
+            
+            document.getElementById('daily-workout').innerHTML = `
+                <div class="exercise-list">
+                    <h3>${workout.title} - День ${day}</h3>
+                    ${workout.exercises.map(ex => `<div class="exercise-item">${ex}</div>`).join('')}
+                    <button class="btn btn-large mt-20" onclick="completeWorkout(${day})">✅ Завершить тренировку</button>
+                </div>
+            `;
+        }
+
+        // Завершение тренировки
+        function completeWorkout(day) {
+            userData.completedWorkouts++;
+            userData.currentStreak++;
+            userData.workoutHistory.push({
+                day: day,
                 date: new Date().toISOString(),
-                unlocked: true
-            };
+                type: '30days-beginner'
+            });
             
-            if (!achievements.find(a => a.id === achievementId)) {
-                achievements.push(achievement);
-                localStorage.setItem('achievements', JSON.stringify(achievements));
-                showAchievementNotification(achievementId);
-            }
+            localStorage.setItem('fitgenius-data', JSON.stringify(userData));
+            updateProgress();
+            alert(`🎉 Тренировка дня ${day} завершена! Так держать!`);
         }
 
-        function showAchievementNotification(achievementId) {
-            const messages = {
-                waterMaster: '💧 Достижение: Водный мастер!',
-                weekComplete: '🏆 Неделя завершена!',
-                monthComplete: '🎉 Месяц завершен!'
+        // Быстрая тренировка
+        function generateQuickWorkout(type) {
+            const workouts = {
+                strength: {
+                    title: "💪 СИЛОВАЯ ТРЕНИРОВКА",
+                    exercises: ["• Жим штанги: 4х8-12", "• Тяга штанги: 4х8-12", "• Приседания: 4х10", "• Подъем на бицепс: 3х12", "• Планка: 3х60сек"]
+                },
+                cardio: {
+                    title: "🏃 КАРДИО ТРЕНИРОВКА", 
+                    exercises: ["• Бег: 30 минут", "• Велосипед: 20 минут", "• Скакалка: 5х2мин", "• Берпи: 4х15", "• Альпинист: 4х30сек"]
+                },
+                hiit: {
+                    title: "🔥 ВИИТ ТРЕНИРОВКА",
+                    exercises: ["• Спринты: 10х30сек", "• Отжимания: 5х15", "• Приседания с прыжком: 4х20", "• Бёрпи: 5х10", "• Планка: 4х45сек"]
+                },
+                fullbody: {
+                    title: "🔄 ФУЛЛ-БАДИ ТРЕНИРОВКА",
+                    exercises: ["• Становая тяга: 4х10", "• Жим гантелей: 4х12", "• Подтягивания: 4х8", "• Выпады: 3х12", "• Пресс: 4х25"]
+                }
             };
             
-            alert(messages[achievementId] || '🎊 Новое достижение!');
+            const workout = workouts[type];
+            document.getElementById('quick-workout-result').innerHTML = `
+                <div class="feature-card pulse">
+                    <h3>${workout.title}</h3>
+                    ${workout.exercises.map(ex => `<div class="exercise-item">${ex}</div>`).join('')}
+                    <button class="btn btn-large mt-20" onclick="completeQuickWorkout('${type}')">✅ Начать тренировку</button>
+                </div>
+            `;
         }
 
-        // Загрузка фото
-        function handlePhotoUpload(event) {
+        function completeQuickWorkout(type) {
+            userData.completedWorkouts++;
+            userData.currentStreak++;
+            userData.workoutHistory.push({
+                type: type,
+                date: new Date().toISOString()
+            });
+            
+            localStorage.setItem('fitgenius-data', JSON.stringify(userData));
+            updateProgress();
+            alert('🎉 Тренировка завершена! Отличная работа!');
+        }
+
+        // Определение тренажеров
+        function openCamera() {
+            document.getElementById('machinePhoto').click();
+        }
+
+        function analyzeMachine(event) {
             const file = event.target.files[0];
             if (file) {
-                const reader = new FileReader();
-                reader.onload = function(e) {
-                    const photos = JSON.parse(localStorage.getItem('progressPhotos')) || [];
-                    photos.push({
-                        url: e.target.result,
-                        date: new Date().toISOString(),
-                        day: currentDay
-                    });
-                    localStorage.setItem('progressPhotos', JSON.stringify(photos));
-                    loadProgressPhotos();
-                };
-                reader.readAsDataURL(file);
+                // В реальном приложении здесь был бы AI для анализа фото
+                // Показываем пример результата
+                showMachineInfo('sample');
             }
         }
 
-        function loadProgressPhotos() {
-            const photos = JSON.parse(localStorage.getItem('progressPhotos')) || [];
-            const grid = document.getElementById('photoGrid');
-            grid.innerHTML = '';
+        function showMachineInfo(machineType) {
+            const machineData = {
+                'treadmill': {
+                    name: "🏃 БЕГОВАЯ ДОРОЖКА",
+                    instructions: [
+                        "1. Встаньте на боковые платформы",
+                        "2. Запустите дорожку на низкой скорости",
+                        "3. Начните с быстрой ходьбы",
+                        "4. Постепенно увеличивайте скорость",
+                        "5. Держитесь за поручни для баланса",
+                        "💡 Совет: Начинайте с 10-15 минут"
+                    ]
+                },
+                'elliptical': {
+                    name: "🔁 ЭЛЛИПТИЧЕСКИЙ ТРЕНАЖЕР",
+                    instructions: [
+                        "1. Встаньте на педали",
+                        "2. Возьмитесь за подвижные рычаги",
+                        "3. Начните движение вперед-назад",
+                        "4. Держите спину прямой",
+                        "5. Используйте разные программы",
+                        "💡 Совет: Отлично для кардио без нагрузки на суставы"
+                    ]
+                },
+                'leg-press': {
+                    name: "🦵 ТРЕНАЖЕР ДЛЯ НОГ",
+                    instructions: [
+                        "1. Сядьте в тренажер, плотно прижав спину",
+                        "2. Поставьте ноги на платформу на ширине плеч",
+                        "3. Выжмите платформу, не выпрямляя колени полностью",
+                        "4. Медленно опустите вес",
+                        "5. Дышите правильно: выдох на усилии",
+                        "💡 Совет: Начинайте с легкого веса"
+                    ]
+                },
+                'chest-press': {
+                    name: "💪 ЖИМ ОТ ГРУДИ",
+                    instructions: [
+                        "1. Отрегулируйте сиденье по высоте",
+                        "2. Возьмитесь за рукоятки на уровне груди",
+                        "3. Выжмите вперед, выдыхая",
+                        "4. Медленно верните в исходное положение",
+                        "5. Локти под углом 90 градусов",
+                        "💡 Совет: Не выпрямляйте локти полностью"
+                    ]
+                },
+                'sample': {
+                    name: "📷 ТРЕНАЖЕР ОПРЕДЕЛЕН",
+                    instructions: [
+                        "1. Сфокусируйтесь на правильной технике",
+                        "2. Начните с легкого веса",
+                        "3. Следите за дыханием",
+                        "4. Выполняйте 3-4 подхода по 10-15 повторений",
+                        "5. Отдыхайте 60-90 секунд между подходами",
+                        "🎯 Рекомендация: Посмотрите видео с техникой выполнения"
+                    ]
+                }
+            };
             
-            photos.forEach(photo => {
-                const img = document.createElement('img');
-                img.src = photo.url;
-                img.className = 'photo-item';
-                grid.appendChild(img);
-            });
+            const machine = machineData[machineType];
+            document.getElementById('machine-result').innerHTML = `
+                <h3>${machine.name}</h3>
+                <div class="exercise-list">
+                    <h4>📝 ИНСТРУКЦИЯ ПО ИСПОЛЬЗОВАНИЮ:</h4>
+                    ${machine.instructions.map(inst => `<div class="exercise-item">${inst}</div>`).join('')}
+                </div>
+                <button class="btn mt-20" onclick="saveMachineInstruction('${machineType}')">💾 Сохранить инструкцию</button>
+            `;
+            document.getElementById('machine-result').style.display = 'block';
         }
 
-        // Инициализация при загрузке
-        function initNewFeatures() {
-            initWaterTracker();
-            loadProgressPhotos();
-            updateTimerDisplay();
+        function saveMachineInstruction(machineType) {
+            alert('📋 Инструкция сохранена в твоем профиле!');
         }
 
-        // Добавь этот вызов в существующую функцию init()
+        // Обновление прогресса
+        function updateProgress() {
+            document.getElementById('totalWorkouts').textContent = userData.completedWorkouts;
+            document.getElementById('currentStreak').textContent = userData.currentStreak;
+            document.getElementById('completedWorkouts').textContent = userData.completedWorkouts;
+            document.getElementById('totalDays').textContent = userData.workoutHistory.length;
+            
+            const progress = Math.min(100, Math.round((userData.completedWorkouts / 30) * 100));
+            document.getElementById('programProgress').textContent = progress + '%';
+            document.getElementById('successRate').textContent = progress + '%';
+            
+            // История тренировок
+            const history = document.getElementById('workout-history');
+            history.innerHTML = userData.workoutHistory.slice(-5).reverse().map(workout => `
+                <div class="exercise-item">
+                    <strong>${new Date(workout.date).toLocaleDateString()}</strong> - 
+                    ${workout.type === '30days-beginner' ? `День ${workout.day}` : workout.type}
+                </div>
+            `).join('');
+        }
+
+        // Инициализация
         document.addEventListener('DOMContentLoaded', function() {
-            init(); // твоя существующая функция
-            initNewFeatures(); // новые функции
+            updateProgress();
         });
     </script>
-
-    <!-- Существующий JavaScript код остаётся здесь -->
 </body>
 </html>
